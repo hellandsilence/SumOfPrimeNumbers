@@ -1,19 +1,18 @@
 using System.Diagnostics;
-using System.Security.Cryptography.X509Certificates;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 internal class Program
 {
     private static void Main(string[] args)
     {
-        List<ulong> primeNumbers = new List<ulong> {2};
+        const ulong tenMillion = 10_000_000;
         ulong number = 0;
         ulong sum = 0;
         ulong counter = 0;
+        List<ulong> primeNumbers = new List<ulong> { 2 };
         var timeSpend = new Stopwatch();    // время выполнения 11:50 (ничего быстрее пока не придумал)
 
         timeSpend.Start();
-        for (ulong i = 2; counter < 10000000; i++)
+        for (ulong i = 2; counter < tenMillion; i++)
         {
             number = i;
             if (CheckingForPrimeNumber(number) == true)
@@ -24,7 +23,6 @@ internal class Program
             }
         }
         timeSpend.Stop();
-
 
         bool CheckingForPrimeNumber(ulong number)
         {
