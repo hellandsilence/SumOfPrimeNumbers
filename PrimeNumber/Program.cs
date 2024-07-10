@@ -1,25 +1,49 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
+using System.Security.Cryptography.X509Certificates;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 internal class Program
 {
     private static void Main(string[] args)
     {
+        List<ulong> primeNumbers = new List<ulong> {2};
         ulong number = 0;
-        ulong sum = 17; // Сумма первых 4 простых чисел (2, 3, 5, 7)
-        ulong counter = 4; // Первые 4 простых числа из 10 000 000
-        var timeSpend = new Stopwatch();
+        ulong sum = 0;
+        ulong counter = 0;
+        var timeSpend = new Stopwatch();    // время выполнения 11:50 (ничего быстрее пока не придумал)
 
         timeSpend.Start();
-        for (ulong i = 10; counter < 10000000; i++)
+        for (ulong i = 2; counter < 10000000; i++)
         {
             number = i;
-            if(number % 2 != 0 && number % 3 != 0 && number % 5 != 0 && number % 7 != 0)
+            if (CheckingForPrimeNumber(number) == true)
             {
+                primeNumbers.Add(number);
                 counter++;
                 sum += number;
             }
         }
         timeSpend.Stop();
+
+
+        bool CheckingForPrimeNumber(ulong number)
+        {
+            int i = 0;
+            bool q = true;
+            for (ulong j = primeNumbers[i]; j <= Math.Round(Math.Sqrt(number - 0.49999)); j++)
+            {
+                if (number % j == 0)
+                {
+                    q = false;
+                    break;
+                }
+                else
+                {
+                    i++;
+                }
+            }
+            return q;
+        }
 
         Console.WriteLine($"Последнее число: {number}");
         Console.WriteLine($"Сумма: {sum}");
